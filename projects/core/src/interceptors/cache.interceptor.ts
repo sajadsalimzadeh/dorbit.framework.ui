@@ -91,11 +91,9 @@ export class CacheInterceptor implements HttpInterceptor {
 
             if (matchCache.isEviction) {
               const keys = await httpCache.storage.getAllKeys();
-              console.log(keys, matchCache.httpCache.url)
               keys.filter(async key => {
                 if(typeof matchCache.httpCache.url == 'string') {
                   if(key.includes(matchCache.httpCache.url)) {
-                    console.log(key)
                     await this.cacheService.remove(key, httpCache.storage);
                   }
                 } else {

@@ -45,7 +45,6 @@ export class MessageInterceptor implements HttpInterceptor {
         }
       })).pipe(catchError(e => {
         if (e instanceof HttpErrorResponse) {
-          console.log(e)
           if (e.error?.message) {
             this.send(`message.${e.error.message}`, 'danger', undefined, e.error.data);
           } else if (e.status == 504 || e.status == 0) {
