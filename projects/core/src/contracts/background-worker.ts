@@ -10,7 +10,6 @@ export abstract class BackgroundWorker implements IBackgroundWorker {
   subscription = new Subscription();
 
   async start() {
-    await this.dispose();
     this.subscription = new Subscription();
     await this.startAsync();
   }
@@ -18,6 +17,7 @@ export abstract class BackgroundWorker implements IBackgroundWorker {
   abstract startAsync(): Promise<void>;
 
   dispose(): Promise<void> {
-    return Promise.resolve(undefined);
+    this.subscription.unsubscribe();
+    return Promise.resolve();
   }
 }
